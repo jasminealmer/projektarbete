@@ -31,15 +31,15 @@ if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den förs
 
   if ($activeUserType === 1)
   {
-    header("Location: startbootstrap-resume-gh-pages/userpage.php");
+    header("Location: userpage.php");
   }
   if ($activeUserType === 2)
   {
-    header("Location: startbootstrap-resume-gh-pages/caregiverpage.php");
+    header("Location: caregiverpage.php");
   }
   if ($activeUserType === 3)
   {
-    header("Location: startbootstrap-resume-gh-pages/adminpage.php");
+    header("Location: adminpage.php");
   }
 }
 else
