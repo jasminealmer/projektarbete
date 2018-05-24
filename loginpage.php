@@ -20,8 +20,8 @@
     <form class="form-signin" method="post" action="processlogin.php">
       <br/>
       <h2 class="form-signin-heading">Logga in</h2>
-      <input type="text" class="form-control" name="username" placeholder="E-postadress" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder="Lösenord" required=""/><br/>
+      <p><input type="text" class="form-control" name="username" placeholder="E-postadress" required="" autofocus="" /></p>
+      <p><input type="password" class="form-control" name="password" placeholder="Lösenord" required=""/></p>
       <button class="btn btn-lg btn-primary btn-block" type="submit" href="">LOGGA IN</button>
       <br/><br/><br/>
     </form>
