@@ -8,11 +8,11 @@ if (!isset($_SESSION["userTypeID"] === 3))
   }
   else if (isset($_SESSION["userTypeID"] === 1))
   {
-    header("Location: startbootstrap-resume-gh-pages/userpage.php");
+    header("Location: userpage.php");
   }
   else
   {
-    header("Location: startbootstrap-resume-gh-pages/index.php");
+    header("Location: index.php");
   }
 }
 
