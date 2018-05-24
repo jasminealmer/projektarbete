@@ -1,9 +1,3 @@
-<?php
-
-include('connecion.php');
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -352,7 +346,7 @@ include('connecion.php');
           </div>
         </div>
       </div>
-        
+
         </div>
       </div>
     </section>

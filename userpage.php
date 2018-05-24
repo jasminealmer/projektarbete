@@ -1,3 +1,22 @@
+<?php
+session_start();
+if (isset($_SESSION["userTypeID"] !== 1))
+{
+  if (isset($_SESSION["userTypeID"] === 2))
+  {
+    header("Location: caregiverpage.php");
+  }
+  else if (isset($_SESSION["userTypeID"] === 3))
+  {
+    header("Location: adminpage.php");
+  }
+  else
+  {
+    header("Location: index.php");
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
