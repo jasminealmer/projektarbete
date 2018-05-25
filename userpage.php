@@ -1,20 +1,6 @@
 <?php
-session_start();
-if (isset($_SESSION["userTypeID"] !== 1))
-{
-  if (isset($_SESSION["userTypeID"] === 2))
-  {
-    header("Location: caregiverpage.php");
-  }
-  else if (isset($_SESSION["userTypeID"] === 3))
-  {
-    header("Location: adminpage.php");
-  }
-  else
-  {
-    header("Location: index.php");
-  }
-}
+include('connection.php');
+require_once('checklogin.php');
 ?>
 
 <!DOCTYPE html>
@@ -202,6 +188,14 @@ if (isset($_SESSION["userTypeID"] !== 1))
       </section>
 
     </div>
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
+      <div class="my-auto">
+        <form name='LogOut' action='processlogout.php' method='post'>
+        <input type='submit' name='logOut' value='Logga Ut!'/>
+      </div>
+    </section>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

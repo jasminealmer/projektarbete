@@ -1,7 +1,7 @@
 <?php
 include('connection.php');
 
-$LIemail = mysqli_real_escape_string($connection, $_POST["username"]);
+$LIemail = mysqli_real_escape_string($connection, $_POST["useremail"]);
 $LIpassword = mysqli_real_escape_string($connection, $_POST["password"]);
 
 $userType = "SELECT userTypeID FROM users WHERE email = '".$LIemail."' ";
@@ -25,19 +25,19 @@ if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den förs
   {
     session_start();
     $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["username"] = $LIemail;
+    $_SESSION["useremail"] = $LIemail;
     header("Location: userpage.php");
   }
   if ($activeUserType['userTypeID'] === "2")
   {
     $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["username"] = $LIemail;
+    $_SESSION["useremail"] = $LIemail;
     header("Location: caregiverpage.php");
   }
   if ($activeUserType['userTypeID'] === "3")
   {
     $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["username"] = $LIemail;
+    $_SESSION["useremail"] = $LIemail;
     header("Location: adminpage.php");
   }
 }

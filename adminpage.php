@@ -1,22 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION["userTypeID"] === 3))
-{
-  if (isset($_SESSION["userTypeID"] === 2))
-  {
-    header("Location: caregiverpage.php");
-  }
-  else if (isset($_SESSION["userTypeID"] === 1))
-  {
-    header("Location: userpage.php");
-  }
-  else
-  {
-    header("Location: index.php");
-  }
-}
-
- ?>
+include('connection.php');
+require_once('checklogin.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,29 +73,37 @@ if (!isset($_SESSION["userTypeID"] === 3))
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
         <div class="my-auto">
           <h2 class="mb-5">Hantera Vaccinationsjournalens kunder</h2>
-
+          <p>Text om användartyper</p>
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
-              <h3 class="mb-0">Lägg till en användare</h3>
+              <?php
+              include('connection.php');
+              $sql = "SELECT userTypeID, email, name, phone FROM users";
+              $result = $connection->query($sql);
+
+              if ($result->num_rows>0)
+              {
+                echo "<table><tr> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> </tr>";
+                // output data of each row
+                while($row = $result->fetch_assoc())
+                {
+                  echo "<tr> <td>".$row["userTypeID"]."</td> <td>".$row["email"]."</td> <td>".$row["name"]."</td> <td>".$row["phone"]."</td> </tr>";
+                }
+                echo "</table>";
+              }
+              else
+              {
+                echo "0 results";
+              }
+              $connection->close();
+              ?>
+
+
               <form id="contactForm" name="sentMessage" novalidate="novalidate" action="processadmin.php">
+
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <input class="form-control" id="name" name="name" type="text" placeholder="Namn" required="required" data-validation-required-message="Du måste fylla i ett namn.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="email" name="email" type="email" placeholder="Email" required="required" data-validation-required-message="Du måste fylla i en email.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="phone" name="phone" type="tel" placeholder="Telefon" required="required" data-validation-required-message="Du måste fylla i ett telefonnummer.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="password" name="password" type="password" placeholder="Lösenord" required="required" data-validation-required-message="Du måste fylla i ett lösenord.">
-                      <p class="help-block text-danger"></p>
-                    </div>
+
                     <div class="form-group">
                       <select name="usertype">
                         <option value="kund">Kund</option>
@@ -119,11 +112,13 @@ if (!isset($_SESSION["userTypeID"] === 3))
                       </select>
                     </div>
                   </div>
+
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-center">
                     <div id="success"></div>
                     <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Lägg till</button><br/><br/>
                   </div>
+
                 </div>
               </form>
               <div class="subheading mb-3">Registrerade användare:</div>

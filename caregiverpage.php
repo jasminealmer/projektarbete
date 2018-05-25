@@ -1,3 +1,8 @@
+<?php
+include('connection.php');
+require_once('checklogin.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
