@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-require_once('checklogin.php');
+include('checklogin.php');
 ?>
 
 <!DOCTYPE html>

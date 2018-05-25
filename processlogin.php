@@ -21,23 +21,21 @@ $HSLIpassword = sha1($SLIpassword);
 
 if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den första raden (kommer bara vara 1 rad) och jämför med det saltade och hashade lösenordet som användaren försöker logga in med
 {
+  session_start();
+  $_SESSION["userTypeID"] = $activeUserType;
+  $_SESSION["useremail"] = $LIemail;
+
   if ($activeUserType['userTypeID'] === "1")
   {
-    session_start();
-    $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["useremail"] = $LIemail;
     header("Location: userpage.php");
   }
   if ($activeUserType['userTypeID'] === "2")
   {
-    $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["useremail"] = $LIemail;
     header("Location: caregiverpage.php");
   }
   if ($activeUserType['userTypeID'] === "3")
   {
-    $_SESSION["userTypeID"] = $activeUserType;
-    $_SESSION["useremail"] = $LIemail;
+    var_dump($_SESSION["useremail"] = $LIemail);
     header("Location: adminpage.php");
   }
 }

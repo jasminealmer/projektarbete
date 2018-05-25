@@ -4,21 +4,16 @@ if (!isset($_SESSION['useremail']))
 {
   header("Location: loginpage.php");
 }
-else
+if ($_SESSION["userTypeID"] === "1")
 {
-  if ($_SESSION["userTypeID"] === "1")
-  {
-    header("Location: userpage.php");
-  }
-  if ($_SESSION["userTypeID"] === "2")
-  {
-    header("Location: caregiverpage.php");
-  }
-  if ($_SESSION["userTypeID"] === "3")
-  {
-    header("Location: adminpage.php");
-  }
+  header("Location: userpage.php");
 }
-echo session_status();
-session_write_close();
+if ($_SESSION["userTypeID"] === "2")
+{
+  header("Location: caregiverpage.php");
+}
+if ($_SESSION["userTypeID"] === "3")
+{
+  header("Location: adminpage.php");
+}
  ?>
