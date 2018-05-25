@@ -6,4 +6,4 @@ session_unset();
 session_destroy();
 echo session_status();
 header("Location: loginpage.php");
- ?>
+?>
