@@ -35,7 +35,6 @@ if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den förs
   }
   if ($activeUserType['userTypeID'] === "3")
   {
-    var_dump($_SESSION["useremail"] = $LIemail);
     header("Location: adminpage.php");
   }
 }

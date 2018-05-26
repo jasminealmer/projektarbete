@@ -14,8 +14,10 @@
     <div class="wrapper">
     <form class="form-signin" method="post" action="processreg.php">
       <h2 class="form-signin-heading">Registrera dig</h2>
-      <input type="text" class="form-control" name="username" placeholder="E-postadress" required="" autofocus="" /><br/>
-      <input type="password" class="form-control" name="password" placeholder="Lösenord" required=""/><br/>
+      <input type="text" class="form-control" name="name" placeholder="Namn"/><br/>
+      <input type="text" class="form-control" name="postalCode" placeholder="Postnummer"/><br/>
+      <input type="text" class="form-control" name="username" placeholder="E-postadress"/><br/>
+      <input type="password" class="form-control" name="password" placeholder="Lösenord"/><br/>
       <label class="checkbox">
         <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Jag accepterar <a href="https://www.w3schools.com">användarvillkoren.</a><br/>
         <input type="checkbox" value="mail-me" id="mail-me" name="mail-me"> Ja, jag vill prenumerera på nyhetsbrev.</a>

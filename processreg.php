@@ -32,15 +32,17 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-$useremail = mysqli_real_escape_string($connection, $_POST['username']);
-$password = mysqli_real_escape_string($connection, $_POST['password']);
+$name = trim(mysqli_real_escape_string($connection, $_POST['name']), " ");
+$postalcode = trim(mysqli_real_escape_string($connection, $_POST['postalCode']), " ");
+$useremail = trim(mysqli_real_escape_string($connection, $_POST['username']), " ");
+$password = trim(mysqli_real_escape_string($connection, $_POST['password']), " ");
 $salt = generateRandomString();
 
 
 var_dump($useremail);
 var_dump($password);
 
-if ($useremail === "" || $password === "")
+if ($name === "" || $postalcode === "" || $useremail === "" || $password === "")
 {
   die("Var vänlig fyll i alla fält!");
 }
@@ -65,7 +67,7 @@ else
       {
         $Spassword = $password . $salt;
         $HSpassword = sha1($Spassword);
-        $query = "INSERT INTO users(userTypeID, email, password, salt) VALUES (1,'".$useremail."','".$HSpassword."','".$salt."');";
+        $query = "INSERT INTO users(userTypeID, email, name, postalCode, password, salt) VALUES (1,'".$useremail."','".$name."','".$postalcode."','".$HSpassword."','".$salt."');";
         $connection->query($query);
         header("Location: loginpage.php");
       }

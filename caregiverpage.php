@@ -17,6 +17,7 @@ include('checklogin.php');
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/userPages.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -50,9 +51,10 @@ include('checklogin.php');
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#experience">Bokningsförfrågningar</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Logga ut</a>
-          </li>
+          <form action="processlogout.php" method="get" >
+            <button class="logOutButton" type="submit">LOGGA UT</button>
+            <br/><br/>
+          </form>
         </ul>
       </div>
     </nav>

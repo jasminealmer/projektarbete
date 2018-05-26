@@ -17,6 +17,7 @@ include('checklogin.php');
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/userPages.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -45,38 +46,48 @@ include('checklogin.php');
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">Min profil</a>
+            <a class="nav-link js-scroll-trigger" href="#minprofil">Min profil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#experience">Mina vaccinationer</a>
+            <a class="nav-link js-scroll-trigger" href="#minavaccinationer">Mina vaccinationer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#education">Kommande vaccinationer</a>
+            <a class="nav-link js-scroll-trigger" href="#kommandevaccinationer">Kommande vaccinationer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#interests">Bokningsförfrågan</a>
+            <a class="nav-link js-scroll-trigger" href="#bokningsforfragan">Bokningsförfrågan</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Logga ut</a>
-          </li>
+          <form action="processlogout.php" method="get" >
+            <button class="logOutButton" type="submit">LOGGA UT</button>
+            <br/><br/>
+          </form>
+          </div>
         </ul>
       </div>
     </nav>
 
     <div class="container-fluid p-0">
 
-      <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
+      <section class="resume-section p-3 p-lg-5 d-flex d-column" id="minprofil">
         <div class="my-auto">
           <h1 class="mb-0">Välkommen
-            <span class="text-primary">Anna!</span>
+            <?php
+            include("connection.php");
+            session_start();
+            $email = $_SESSION["useremail"];
+            $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
+            $result1 = $connection->query($sql1);
+            $name = $result1->fetch_assoc();
+            echo "".$name['name']."";
+            ?>
           </h1>
-          <h3 class="mb-0">DINA UPPGIFTER</h3>
-          <div class="subheading mb-3"><p>Namn: Anna Enstam</p> <p> Email: anna.enstam@gmail.com </p> <p>Postnummer: 752 26</p><p>Telefonnummer: 070-699 23 13</p> </div>
+          <h3 class="mb-0">DINA UPPGIFTER:</h3>
+          <div> <?php include("showUserData.php"); ?> </div>
           <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Redigera</button>
         </div>
       </section>
 
-      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="minavaccinationer">
         <div class="my-auto">
           <h2 class="mb-5">Mina vaccinationer</h2>
 
@@ -87,15 +98,25 @@ include('checklogin.php');
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" id="name" type="text" placeholder="Vaccinationstyp *" required="required" data-validation-required-message="Du måste lägga in vaccinationstyp.">
+                      <div class="subheading mb-3">Vaccination:</div>-
+                      <select name="vaccinationToTake">
+                        <option value="TBE 1">TBE dos 1</option>
+                        <option value="TBE 2">TBE dos 2</option>
+                        <option value="TBE 3">TBE dos 3</option>
+                        <option value="Hepatit A 1">Hepatit A dos 1</option>
+                        <option value="Hepatit A 2">Hepatit A dos 2</option>
+                        <option value="Hepatit A 3">Hepatit A dos 3</option>
+                        <option value="HPV 1">HPV dos 1</option>
+                        <option value="HPV 2">HPV dos 2</option>
+                        <option value="HPV 3">HPV dos 3</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input class="form-control" id="email" type="email" placeholder="Vaccinationscentral" required="required" data-validation-required-message="Du måste lägga till en vaccinationscentral.">
                       <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                      <input class="form-control" id="email" type="email" placeholder="Vaccinationscentral *" required="required" data-validation-required-message="Du måste lägga till en vaccinationscentral.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="phone" type="tel" placeholder="Datum *" required="required" data-validation-required-message="Du måste fylla i ett datum.">
+                      <input class="form-control" id="phone" type="tel" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
                       <p class="help-block text-danger"></p>
                     </div>
                   </div>
@@ -127,7 +148,7 @@ include('checklogin.php');
 
       </section>
 
-      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="kommandevaccinationer">
         <div class="my-auto">
           <h2 class="mb-5">Kommande vaccinationer</h2>
 
@@ -148,33 +169,37 @@ include('checklogin.php');
         </div>
       </section>
 
-      <section id="interests">
+      <section id="bokningsforfragan">
         <div class="my-auto">
             <div class="col-lg-12 text-center"> <br/><br/>
-              <h2 class="mb-julia">Bokningsförfrågan</h2>
+              <h2 class="mb-5">Bokningsförfrågan</h2>
             </div>
             <div class="col-lg-12">
-              <form id="contactForm" name="sentMessage" novalidate="novalidate" action="../bookingRequests.php">
+              <form method="post" id="bookingRequestForm" name="bookingRequestForm" action="bookingRequest.php">
                 <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input class="form-control" id="name" name="name" type="text" placeholder="Namn *" required="required" data-validation-required-message="Fyll ditt namn.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="email" name="email" type="email" placeholder="Email-adress *" required="required" data-validation-required-message="Fyll i din email-adress.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="phone" name="phone" type="tel" placeholder="Postnummer *" required="required" data-validation-required-message="Fyll i ditt postnummer.">
-                      <p class="help-block text-danger"></p>
-                    </div>
+                  <p><h3 class="mb-0">DINA UPPGIFTER:</h3></p>
+                  <div> <?php include("showUserData.php"); ?> </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <textarea class="form-control" id="message" name="message" placeholder="Meddelande *" required="required" data-validation-required-message="Fyll i vaccinationstyp."></textarea>
+                      <textarea class="form-control" id="message" name="message" placeholder="Meddelande" required="required" data-validation-required-message="Fyll i vaccinationstyp."></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="subheading mb-3">Välj önskat vaccin:</div>-
+                    <select name="vaccinationToTake">
+                      <option value="">Välj vaccin</option>
+                      <option value="TBE 1">TBE dos 1</option>
+                      <option value="TBE 2">TBE dos 2</option>
+                      <option value="TBE 3">TBE dos 3</option>
+                      <option value="Hepatit A 1">Hepatit A dos 1</option>
+                      <option value="Hepatit A 2">Hepatit A dos 2</option>
+                      <option value="Hepatit A 3">Hepatit A dos 3</option>
+                      <option value="HPV 1">HPV dos 1</option>
+                      <option value="HPV 2">HPV dos 2</option>
+                      <option value="HPV 3">HPV dos 3</option>
+                    </select>
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-center">
@@ -188,14 +213,6 @@ include('checklogin.php');
       </section>
 
     </div>
-
-    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="education">
-      <div class="my-auto">
-        <form name='LogOut' action='processlogout.php' method='post'>
-        <input type='submit' name='logOut' value='Logga Ut!'/>
-      </div>
-    </section>
-
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

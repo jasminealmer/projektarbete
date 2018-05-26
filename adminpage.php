@@ -17,6 +17,7 @@ include('checklogin.php');
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/userPages.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -50,9 +51,10 @@ include('checklogin.php');
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#experience">Hantera användare</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#awards">Logga ut</a>
-          </li>
+          <form action="processlogout.php" method="get" >
+            <button class="logOutButton" type="submit">LOGGA UT</button>
+            <br/><br/>
+          </form>
         </ul>
       </div>
     </nav>
@@ -112,31 +114,8 @@ include('checklogin.php');
                       </select>
                     </div>
                   </div>
-
-                  <div class="clearfix"></div>
-                  <div class="col-lg-12 text-center">
-                    <div id="success"></div>
-                    <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Lägg till</button><br/><br/>
-                  </div>
-
                 </div>
               </form>
-              <div class="subheading mb-3">Registrerade användare:</div>
-              <div class="container">
-              <?php /*
-              include('connection.php');
-                $sql = "SELECT * FROM users";
-                $result = $connection->query($sql);
-
-                while ($row = $result->fetch_assoc())
-                {
-                  echo $row["userTypeID"];
-                  echo $row["email"];
-                  echo $row["name"];
-                  echo $row["phone"];
-                }*/
-               ?>
-            </div>
           </div>
         </div>
       </div>
