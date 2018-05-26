@@ -73,7 +73,7 @@ include('checklogin.php');
           <h1 class="mb-0">Välkommen
             <?php
             include("connection.php");
-            session_start();
+            //session_start();
             $email = $_SESSION["useremail"];
             $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
             $result1 = $connection->query($sql1);
@@ -201,10 +201,11 @@ include('checklogin.php');
                       <option value="HPV 3">HPV dos 3</option>
                     </select>
                   </div>
+                  <script src="js/request.js"></script>
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-center">
                     <div id="success"></div>
-                    <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Skicka förfrågan</button><br/><br/>
+                    <input type="submit" value="Skicka förfrågan" id="sendRequestButton" class="btn btn-primary btn-xl text-uppercase"><br/><br/>
                   </div>
                 </div>
               </form>
@@ -223,6 +224,8 @@ include('checklogin.php');
 
     <!-- Custom scripts for this template -->
     <script src="js/resume.min.js"></script>
+
+
 
   </body>
 
