@@ -149,7 +149,7 @@ if ($_SESSION["userTypeID"] === "3")
                   <div class="col-md-6">
                     <div class="form-group">
                       <div class="subheading mb-3">Kommentar:</div>
-                      <textarea class="form-control" id="message" name="comment"></textarea>
+                      <textarea rows="5" cols="48" class="form-control" id="message" name="comment"></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
 
@@ -171,7 +171,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                   </div>
                   <div class="clearfix"></div>
-                  <div class="col-lg-12 text-center">
+                  <div class="col-lg-12 text-right">
                     <div id="success"></div>
                     <button id="sendMessageButton" name="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Lägg till</button>
                   </div>
@@ -187,11 +187,13 @@ if ($_SESSION["userTypeID"] === "3")
 
                 if ($resultShowTaken->num_rows>0)
                 {
-                  echo "<table><tr> <th>Taget vaccin</th> <th>Datum</th> <th>Kommentar</th> </tr>";
+                  echo "<table><tr> <th>Taget vaccin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Datum &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Kommentar</th> </tr>";
                   // output data of each row
                   while($row = $resultShowTaken->fetch_assoc())
                   {
-                    echo "<tr>
+                    echo
+
+                        "<tr>
                             <td>".$row["vaccinationNameDose"]."</td>
                             <td>".$row["day"]."</td>
                             <td>".$row["comment"]."</td>
@@ -210,7 +212,6 @@ if ($_SESSION["userTypeID"] === "3")
       <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="kommandevaccinationer">
         <div class="my-auto">
           <h2 class="mb-5">Kommande vaccinationer</h2>
-
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
               <h3 class="mb-0">Dina kommande vaccinationer baserat på dina registrerade doser i Vaccinationsjournalen</h3>
@@ -226,7 +227,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                   if ($resultShowNext->num_rows>0)
                   {
-                    echo "<table><tr> <th>Nästa dos:</th> <th>Kan som tidigast tas inom antal dagar:</th> <th>Skall tas inom antal dagar:</th> <th> </th></tr>";
+                    echo "<table><tr> <th>Nästa dos:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Tas tidigast (dagar):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Tas senast (dagar):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Boka här:</th> <th> </th></tr>";
                     // output data of each row
                     while($row = $resultShowNext->fetch_assoc())
                     {
@@ -247,23 +248,17 @@ if ($_SESSION["userTypeID"] === "3")
         </div>
       </section>
 
-      <section id="bokningsforfragan">
+      <section class="resume-section p-3 p-lg-5 d-flex-flex-column" id=bokningsforfragan>
         <div class="my-auto">
-            <div class="col-lg-12 text-center"> <br/><br/>
               <h2 class="mb-5">Gör en bokningsförfrågan</h2>
             </div>
-            <div class="col-lg-12">
+            <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+            <h3 class="mb-0">DINA UPPGIFTER:</h3>
               <form method="post" id="bookingRequestForm" name="bookingRequestForm" action="bookingRequest.php">
-                <div class="row">
-                  <p><h3 class="mb-0">DINA UPPGIFTER:</h3></p>
                   <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <textarea class="form-control" id="message" name="message" placeholder="Meddelande" required="required" data-validation-required-message="Fyll i vaccinationstyp."></textarea>
+                      <textarea rows="5" cols="60" class="form-control" id="message" name="message" placeholder="Skriv ett meddelande" required="required" data-validation-required-message="Fyll i vaccinationstyp."></textarea>
                       <p class="help-block text-danger"></p>
-                    </div>
-                  </div>
                   <div class="form-group">
                     <div class="subheading mb-3">Välj önskat vaccin:</div>
                     <select name="vaccinationToTake">
@@ -280,7 +275,7 @@ if ($_SESSION["userTypeID"] === "3")
                   </div>
                   <script src="js/request.js"></script>
                   <div class="clearfix"></div>
-                  <div class="col-lg-12 text-center">
+                  <div class="text-left">
                     <div id="success"></div>
                     <input type="submit" value="Skicka förfrågan" id="sendRequestButton" class="btn btn-primary btn-xl text-uppercase"><br/><br/>
                   </div>
@@ -303,7 +298,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                 if ($result->num_rows>0)
                 {
-                  echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination</th> <th>Meddelande</th> <th>Åtgärd</th> </tr>";
+                  echo "<table><tr> <th>Email</th> <th>Postnummer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Vaccin &nbsp;&nbsp;&nbsp;</th> <th>Meddelande </th> <th>Åtgärd</th> </tr>";
                   // output data of each row
                   while($row = $result->fetch_assoc())
                   {

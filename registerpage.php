@@ -19,7 +19,7 @@
       <input type="text" class="form-control" name="username" placeholder="E-postadress"/><br/>
       <input type="password" class="form-control" name="password" placeholder="Lösenord"/><br/>
       <label class="checkbox">
-        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Jag accepterar <a href="https://www.w3schools.com">användarvillkoren.</a><br/>
+        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Jag accepterar <a href="registerAnvandarvillkor.php">användarvillkoren.</a><br/>
         <input type="checkbox" value="mail-me" id="mail-me" name="mail-me"> Ja, jag vill prenumerera på nyhetsbrev.</a>
       </label><br/><br/><br/>
       <button class="btn btn-lg btn-primary btn-block" type="submit">REGISTRERA</button>

@@ -380,7 +380,7 @@
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-                <a href="#">Användarvillkor</a>
+                <a href="indexAnvandarvillkor.php">Användarvillkor</a>
               </li>
             </ul>
           </div>
