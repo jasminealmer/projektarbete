@@ -51,7 +51,7 @@ if ($_SESSION["userTypeID"] === "3")
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <span class="d-block d-lg-none">Start Bootstrap</span>
         <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profilbild.jpg" alt="">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/sveavaccin.jpeg" alt="">
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +59,10 @@ if ($_SESSION["userTypeID"] === "3")
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
+          <form action="uploadProfilePicture.php" method="get" >
+            <button class="logOutButton" type="submit">Ladda upp profilbild</button>
+            <br/><br/>
+          </form>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">Min profil</a>
           </li>

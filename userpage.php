@@ -51,7 +51,8 @@ if ($_SESSION["userTypeID"] === "3")
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <span class="d-block d-lg-none">Start Bootstrap</span>
         <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/jasmine.jpg" alt="">
+          <?php include('profilePicture.php'); ?>
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/julia.jpg" alt="">
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +60,10 @@ if ($_SESSION["userTypeID"] === "3")
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
+          <form action="uploadProfilePicture.php" method="get" >
+            <button class="logOutButton" type="submit">Ladda upp profilbild</button>
+            <br/><br/>
+          </form>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#minprofil">Min profil</a>
           </li>
@@ -69,7 +74,7 @@ if ($_SESSION["userTypeID"] === "3")
             <a class="nav-link js-scroll-trigger" href="#kommandevaccinationer">Kommande vaccinationer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#bokningsforfragan">Bokningsförfrågan</a>
+            <a class="nav-link js-scroll-trigger" href="#bokningsforfragan">Gör en bokningsförfrågan</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#minaBokningsforfragningar">Mina Bokningsförfrågningar</a>
@@ -136,13 +141,15 @@ if ($_SESSION["userTypeID"] === "3")
                       </select>
                     </div>
                     <div class="form-group">
+                      <div class="subheading mb-3">Datum:</div>
                       <input class="form-control" id="date" name="date" type="date" value="åååå-mm-dd" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
                       <p class="help-block text-danger"></p>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <textarea class="form-control" id="message" name="comment" placeholder="Kommentar" ></textarea>
+                      <div class="subheading mb-3">Kommentar:</div>
+                      <textarea class="form-control" id="message" name="comment"></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
 
@@ -213,7 +220,26 @@ if ($_SESSION["userTypeID"] === "3")
                 <input type="checkbox" name="vehicle" value="mail"> Mail
               </form></p>
                 <div class="container">
-                <p>Query från databasen</p>
+                  <?php
+                  $sqlShowNext = "SELECT vaccinations.nextDose, vaccinations.earliestRefill, vaccinations.takeWithin FROM vaccinations JOIN takenVaccinations ON takenVaccinations.vaccinationID=vaccinations.vaccinationID WHERE userID='".$userID['userID']."' ";
+                  $resultShowNext = $connection->query($sqlShowNext);
+
+                  if ($resultShowNext->num_rows>0)
+                  {
+                    echo "<table><tr> <th>Nästa dos:</th> <th>Kan som tidigast tas inom antal dagar:</th> <th>Skall tas inom antal dagar:</th> <th> </th></tr>";
+                    // output data of each row
+                    while($row = $resultShowNext->fetch_assoc())
+                    {
+                      echo "<tr>
+                              <td>".$row["nextDose"]."</td>
+                              <td>".$row["earliestRefill"]."</td>
+                              <td>".$row["takeWithin"]."</td>
+                              <td><input type='submit' value='Gör en bokningsförfrågan'></td>
+                            </tr>";
+                    }
+                    echo "</table>";
+                  }
+                ?>
               </div>
             </div>
           </div>
@@ -224,7 +250,7 @@ if ($_SESSION["userTypeID"] === "3")
       <section id="bokningsforfragan">
         <div class="my-auto">
             <div class="col-lg-12 text-center"> <br/><br/>
-              <h2 class="mb-5">Bokningsförfrågan</h2>
+              <h2 class="mb-5">Gör en bokningsförfrågan</h2>
             </div>
             <div class="col-lg-12">
               <form method="post" id="bookingRequestForm" name="bookingRequestForm" action="bookingRequest.php">

@@ -250,7 +250,7 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/anna.jpg" alt="">
+              <img class="mx-auto rounded-circle" src="img/anna.jpg" alt="">
               <h4>Anna Enstam</h4>
               <p class="text-muted">Database Architect</p>
               <ul class="list-inline social-buttons">
@@ -274,7 +274,7 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/erica.jpg" alt="">
+              <img class="mx-auto rounded-circle" src="img/erica.jpg" alt="">
               <h4>Erica Hedström</h4>
               <p class="text-muted">Head of Business</p>
               <ul class="list-inline social-buttons">
@@ -298,7 +298,7 @@
           </div>
           <div class="col-sm-4">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/jasmine.jpg" alt="">
+              <img class="mx-auto rounded-circle" src="img/jasmine.jpg" alt="">
               <h4>Jasmine Almer</h4>
               <p class="text-muted">Web Programmer</p>
               <ul class="list-inline social-buttons">
@@ -323,7 +323,7 @@
         </div>
         <div class="col-sm-4">
           <div class="team-member">
-            <img class="mx-auto rounded-circle" src="img/team/julia.jpg" alt="">
+            <img class="mx-auto rounded-circle" src="img/julia.jpg" alt="">
             <h4>Julia Ivert</h4>
             <p class="text-muted">Web Designer</p>
             <ul class="list-inline social-buttons">

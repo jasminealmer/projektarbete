@@ -51,7 +51,7 @@ if ($_SESSION["userTypeID"] === "2")
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <span class="d-block d-lg-none">Start Bootstrap</span>
         <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profilbild.jpg" alt="">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/anna.jpg" alt="">
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +59,10 @@ if ($_SESSION["userTypeID"] === "2")
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
+          <form action="uploadProfilePicture.php" method="get" >
+            <button class="logOutButton" type="submit">Ladda upp profilbild</button>
+            <br/><br/>
+          </form>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#experience">Hantera användare</a>
           </li>
@@ -186,6 +190,15 @@ if ($_SESSION["userTypeID"] === "2")
         <div class="my-auto">
           <h3 class="mb-0">DINA UPPGIFTER</h3>
           <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
+          <?php
+          $sql2 = "SELECT userID FROM users WHERE email = '".$email."' ";
+          $result2 = $connection->query($sql2);
+          $userID = $result2->fetch_assoc();
+          echo "<form id='sendMessageButton' action='editUser.php' method='post'>
+                  <input type='hidden' value=".$userID['userID']." name='userID'>
+            <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' type='submit'>Redigera</button>
+          </form>";
+          ?>
         </div>
       </section>
 
