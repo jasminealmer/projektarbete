@@ -1,7 +1,7 @@
 <?php
 include('connection.php');
 
-$LIemail = mysqli_real_escape_string($connection, $_POST["useremail"]);
+$LIemail = trim(mysqli_real_escape_string($connection, $_POST["useremail"]), " ");
 $LIpassword = mysqli_real_escape_string($connection, $_POST["password"]);
 
 $userType = "SELECT userTypeID FROM users WHERE email = '".$LIemail."' ";
@@ -22,7 +22,7 @@ $HSLIpassword = sha1($SLIpassword);
 if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den första raden (kommer bara vara 1 rad) och jämför med det saltade och hashade lösenordet som användaren försöker logga in med
 {
   session_start();
-  $_SESSION["userTypeID"] = $activeUserType;
+  $_SESSION["userTypeID"] = $activeUserType['userTypeID'];
   $_SESSION["useremail"] = $LIemail;
 
   if ($activeUserType['userTypeID'] === "1")

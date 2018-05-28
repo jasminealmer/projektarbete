@@ -1,6 +1,21 @@
 <?php
 include('connection.php');
-include('checklogin.php');
+//include('checklogin.php');
+
+session_start();
+
+if (!isset($_SESSION['useremail']))
+{
+  header("Location: loginpage.php");
+}
+if ($_SESSION["userTypeID"] === "1")
+{
+  header("Location: userpage.php");
+}
+if ($_SESSION["userTypeID"] === "2")
+{
+  header("Location: caregiverpage.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,15 +121,15 @@ include('checklogin.php');
                 echo "Välj kolumn att filtrera på! ";
               }
 
-              $query = "SELECT userTypeID, email, name, phone FROM users WHERE $column LIKE '%$searchUserType%' ";
+              $query = "SELECT userTypeID, email, name, phone, postalCode FROM users WHERE $column LIKE '%$searchUserType%' ";
               $sql = $connection->query($query);
 
               if ($sql->num_rows > 0)
               {
-                echo "<table><tr> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> </tr>";
+                echo "<table><tr> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> <th>Postnummer</th> </tr>";
                 while ($data = $sql->fetch_array())
                 {
-                  echo "<tr> <td>".$data["userTypeID"]."</td><td>".$data["email"]."</td><td>".$data["name"]."</td><td>".$data["phone"]."</td></tr>";
+                  echo "<tr> <td>".$data["userTypeID"]."</td><td>".$data["email"]."</td><td>".$data["name"]."</td><td>".$data["phone"]."</td><td>".$data["postalCode"]."</td></tr>";
                 }
                 echo "</table>";
               }
@@ -127,12 +142,12 @@ include('checklogin.php');
           </br><p><h3 class="mb-0">Samtliga användare:</h3></p>
             <?php
             include("connection.php");
-            $sql = "SELECT userID, userTypeID, email, name, phone FROM users";
+            $sql = "SELECT userID, userTypeID, email, name, phone, postalCode FROM users";
             $result = $connection->query($sql);
 
             if ($result->num_rows>0)
             {
-              echo "<table><tr> <th>Användar ID</th> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> <th>Ändra</th> <th>Radera</th> </tr>";
+              echo "<table><tr> <th>Användar ID</th> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> <th>Postnummer</th> <th>Ändra</th> <th>Radera</th> </tr>";
               // output data of each row
               while($row = $result->fetch_assoc())
               {
@@ -142,7 +157,8 @@ include('checklogin.php');
                         <td>".$row["email"]."</td>
                         <td>".$row["name"]."</td>
                         <td>".$row["phone"]."</td>
-                        <td><form method='post' action='edit.php'>
+                        <td>".$row["postalCode"]."</td>
+                        <td><form method='post' action='editAdmin.php'>
                               <input type='hidden' value=".$row['userID']." name='edit_userID'>
                               <input type='submit' value='Ändra'>
                             </form></td>
@@ -151,6 +167,8 @@ include('checklogin.php');
                               <input type='submit' value='Radera'>
                             </form></td>
                       </tr>";
+                      //echo $row['userID'];
+                      //echo "/";
               }
               echo "</table>";
             }
@@ -168,8 +186,7 @@ include('checklogin.php');
       <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
         <div class="my-auto">
           <h3 class="mb-0">DINA UPPGIFTER</h3>
-          <div class="subheading mb-3"><p>Namn: Anna Enstam</p> <p> Email: anna.enstam@gmail.com </p> <p>Postnummer: 752 26</p><p>Telefonnummer: 070-699 23 13</p> </div>
-          <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Redigera</button>
+          <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
         </div>
       </section>
 

@@ -1,6 +1,21 @@
 <?php
 include('connection.php');
-include('checklogin.php');
+//include('checklogin.php');
+
+session_start();
+
+if (!isset($_SESSION['useremail']))
+{
+  header("Location: loginpage.php");
+}
+if ($_SESSION["userTypeID"] === "1")
+{
+  header("Location: userpage.php");
+}
+if ($_SESSION["userTypeID"] === "3")
+{
+  header("Location: adminpage.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,10 +79,27 @@ include('checklogin.php');
       <section class="resume-section p-3 p-lg-5 d-flex d-column" id="about">
         <div class="my-auto">
           <h1 class="mb-0">Välkommen Vaccinationsgivare
-            <span class="text-primary">Svea Vaccin!</span>
+            <span class="text-primary"><?php
+            include("connection.php");
+            //session_start();
+            $email = $_SESSION["useremail"];
+            $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
+            $result1 = $connection->query($sql1);
+            $name = $result1->fetch_assoc();
+            echo "".$name['name']."";
+            ?></span>
           </h1>
           <h3 class="mb-0">DINA UPPGIFTER</h3>
-          <div class="subheading mb-3"><p>Namn: Svea Vaccin</p> <p> Email: info@sveavaccin.se </p> <p>Postnummer: 182 66</p> </div>
+          <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
+          <?php
+          $sql2 = "SELECT userID FROM users WHERE email = '".$email."' ";
+          $result2 = $connection->query($sql2);
+          $userID = $result2->fetch_assoc();
+          echo "<form id='sendMessageButton' action='editUser.php' method='post'>
+                  <input type='hidden' value=".$userID['userID']." name='userID'>
+            <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' type='submit'>Redigera</button>
+          </form>";
+          ?>
         </div>
       </section>
 
@@ -77,9 +109,32 @@ include('checklogin.php');
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
               <div class="subheading mb-3">Aktuella bokningsförfrågningar:</div>
-              <div class="container">
-              <p>Query från databasen</p>
-            </div>
+                <?php
+                include("connection.php");
+                $sql = "SELECT email, postalCode, vaccinationNameDose, message FROM bookingRequests";
+                $result = $connection->query($sql);
+
+                if ($result->num_rows>0)
+                {
+                  echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination     </th> <th>Meddelande     </th> <th>Svara</th> </tr>";
+                  // output data of each row
+                  while($row = $result->fetch_assoc())
+                  {
+                    echo "<tr>
+                            <td>".$row["email"]."</td>
+                            <td>".$row["postalCode"]."</td>
+                            <td>".$row["vaccinationNameDose"]."</td>
+                            <td>".$row["message"]."</td>
+                            <td><input type='submit' value='Svara'></td>
+                          </tr>";
+                  }
+                  echo "</table>";
+                }
+                else
+                {
+                  echo "Du har inga bokningsförfrågningar! :( ";
+                }
+              ?>
           </div>
         </div>
       </div>

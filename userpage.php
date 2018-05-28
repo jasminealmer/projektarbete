@@ -1,6 +1,20 @@
 <?php
 include('connection.php');
-include('checklogin.php');
+
+session_start();
+
+if (!isset($_SESSION['useremail']))
+{
+  header("Location: loginpage.php");
+}
+if ($_SESSION["userTypeID"] === "2")
+{
+  header("Location: caregiverpage.php");
+}
+if ($_SESSION["userTypeID"] === "3")
+{
+  header("Location: adminpage.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +71,9 @@ include('checklogin.php');
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#bokningsforfragan">Bokningsförfrågan</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#minaBokningsforfragningar">Mina Bokningsförfrågningar</a>
+          </li>
           <form action="processlogout.php" method="get" >
             <button class="logOutButton" type="submit">LOGGA UT</button>
             <br/><br/>
@@ -71,19 +88,26 @@ include('checklogin.php');
       <section class="resume-section p-3 p-lg-5 d-flex d-column" id="minprofil">
         <div class="my-auto">
           <h1 class="mb-0">Välkommen
+            <span class="text-primary">
             <?php
-            include("connection.php");
-            //session_start();
             $email = $_SESSION["useremail"];
             $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
             $result1 = $connection->query($sql1);
             $name = $result1->fetch_assoc();
             echo "".$name['name']."";
-            ?>
+            ?></span>
           </h1>
           <h3 class="mb-0">DINA UPPGIFTER:</h3>
-          <div> <?php include("showUserData.php"); ?> </div>
-          <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Redigera</button>
+          <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
+          <?php
+          $sql2 = "SELECT userID FROM users WHERE email = '".$email."' ";
+          $result2 = $connection->query($sql2);
+          $userID = $result2->fetch_assoc();
+          echo "<form id='sendMessageButton' action='editUser.php' method='post'>
+                  <input type='hidden' value=".$userID['userID']." name='userID'>
+            <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' type='submit'>Redigera</button>
+          </form>";
+          ?>
         </div>
       </section>
 
@@ -94,7 +118,7 @@ include('checklogin.php');
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
               <h3 class="mb-0">Lägg till tagen vaccination</h3>
-              <form id="contactForm" name="sentMessage" novalidate="novalidate">
+              <form id="contactForm" name="sentMessage" novalidate="novalidate" action="saveVaccination.php">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -108,15 +132,14 @@ include('checklogin.php');
                         <option value="Hepatit A 3">Hepatit A dos 3</option>
                         <option value="HPV 1">HPV dos 1</option>
                         <option value="HPV 2">HPV dos 2</option>
-                        <option value="HPV 3">HPV dos 3</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <input class="form-control" id="email" type="email" placeholder="Vaccinationscentral" required="required" data-validation-required-message="Du måste lägga till en vaccinationscentral.">
+                      <input class="form-control" id="email" type="text" placeholder="Vaccinationscentral" required="required" data-validation-required-message="Du måste lägga till en vaccinationscentral.">
                       <p class="help-block text-danger"></p>
                     </div>
                     <div class="form-group">
-                      <input class="form-control" id="phone" type="tel" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
+                      <input class="form-control" id="date" type="date" value="åååå-mm-dd" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
                       <p class="help-block text-danger"></p>
                     </div>
                   </div>
@@ -178,7 +201,7 @@ include('checklogin.php');
               <form method="post" id="bookingRequestForm" name="bookingRequestForm" action="bookingRequest.php">
                 <div class="row">
                   <p><h3 class="mb-0">DINA UPPGIFTER:</h3></p>
-                  <div> <?php include("showUserData.php"); ?> </div>
+                  <div class="subheading mb-3"><?php include("showUserData.php"); ?> </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
@@ -208,9 +231,71 @@ include('checklogin.php');
                     <input type="submit" value="Skicka förfrågan" id="sendRequestButton" class="btn btn-primary btn-xl text-uppercase"><br/><br/>
                   </div>
                 </div>
+                <div>
+                  <?php
+                  $sqlShowBookings = "SELECT email, postalCode, vaccinationNameDose, message FROM bookingRequests WHERE email = '".$_SESSION['useremail']."' ";
+                  echo $sqlShowBookings;
+                  $result = $connection->query($sqlShowBookings);
+
+                  if ($result->num_rows>0)
+                  {
+                    echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination</th> <th>Meddelande</th> <th>Åtgärd</th> </tr>";
+                    // output data of each row
+                    while($row = $result->fetch_assoc())
+                    {
+                      echo "<tr>
+                              <td>".$row["email"]."</td>
+                              <td>".$row["postalCode"]."</td>
+                              <td>".$row["vaccinationNameDose"]."</td>
+                              <td>".$row["message"]."</td>
+                              <td><input type='submit' value='Radera'></td>
+                            </tr>";
+                    }
+                    echo "</table>";
+                  }
+                ?>
+                </div>
               </form>
             </div>
         </div>
+      </section>
+
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="minaBokningsforfragningar">
+        <div class="my-auto">
+          <h2 class="mb-5">Mina Bokningsförfrågningar</h2>
+          <div class="resume-item d-flex flex-column flex-md-row mb-5">
+            <div class="resume-content mr-auto">
+              <div class="subheading mb-3">Aktuella bokningsförfrågningar:</div>
+                <?php
+                $emailBookings = $_SESSION["useremail"];
+                $sqlShowBookings = "SELECT email, postalCode, vaccinationNameDose, message FROM bookingRequests WHERE email = '$emailBookings'; ";
+                $result = $connection->query($sqlShowBookings);
+
+                if ($result->num_rows>0)
+                {
+                  echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination</th> <th>Meddelande</th> <th>Åtgärd</th> </tr>";
+                  // output data of each row
+                  while($row = $result->fetch_assoc())
+                  {
+                    echo "<tr>
+                            <td>".$row["email"]."</td>
+                            <td>".$row["postalCode"]."</td>
+                            <td>".$row["vaccinationNameDose"]."</td>
+                            <td>".$row["message"]."</td>
+                            <td><input type='submit' value='Radera'></td>
+                          </tr>";
+                  }
+                  echo "</table>";
+                }
+                else
+                {
+                  echo "Du har inga bokningsförfrågningar! :( ";
+                }
+              ?>
+          </div>
+        </div>
+      </div>
+
       </section>
 
     </div>

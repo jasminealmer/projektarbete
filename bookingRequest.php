@@ -24,7 +24,7 @@ if ($vaccination === "")
 }
 else
 {
-  $query = "INSERT INTO bookingRequests(userID, email, message, postalCode, vaccinationNameDose) VALUES (' " . $userID['userID'] . " ',' " . $email . " ',' " . $message . " ', ' " . $postalcode['postalCode'] . " ',' " . $vaccination . " ')" ;
+  $query = "INSERT INTO bookingRequests(userID, email, message, postalCode, vaccinationNameDose) VALUES ('".$userID['userID']."','".$email."','".$message."','".$postalcode['postalCode']."','".$vaccination."')" ;
   $connection->query($query);
   header("Location: userpage.php");
 }
