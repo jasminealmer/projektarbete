@@ -1,6 +1,5 @@
 <?php
 include("connection.php");
-//session_start();
 $email = $_SESSION["useremail"];
 
 $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";

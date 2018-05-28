@@ -152,23 +152,6 @@ if ($_SESSION["userTypeID"] === "3")
                       <textarea rows="5" cols="48" class="form-control" id="message" name="comment"></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
-
-<!--
-
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Ladda upp kvitto:
-                      <input type="file" name="fileToUpload" id="fileToUpload">
-                      <input type="submit" value="Ladda upp" name="submit" id="laddaUpp">
-                    </form>
-
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                      Select image to upload:
-                      <input type="file" name="fileToUpload" id="fileToUpload">
-                      <input type="submit" value="Upload Image" name="submit">
-                    </form>
-
--->
-
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-right">
@@ -187,7 +170,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                 if ($resultShowTaken->num_rows>0)
                 {
-                  echo "<table><tr> <th>Taget vaccin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Datum &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Kommentar</th> </tr>";
+                  echo "<table><tr> <th>Taget vaccin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Datum &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Kommentar</th> <th>Åtgärd</th> </tr>";
                   // output data of each row
                   while($row = $resultShowTaken->fetch_assoc())
                   {
@@ -197,6 +180,7 @@ if ($_SESSION["userTypeID"] === "3")
                             <td>".$row["vaccinationNameDose"]."</td>
                             <td>".$row["day"]."</td>
                             <td>".$row["comment"]."</td>
+                            <td><input type='submit' value='Radera'></td>
                           </tr>";
                   }
                   echo "</table>";

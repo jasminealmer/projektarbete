@@ -19,7 +19,7 @@ function doubleEmail($email, $connection)
 {
   $query = "SELECT email FROM users WHERE email = '".$email."' ";
   $result = $connection->query($query);
-  $DBemail = $result->fetch_assoc(); //Lägger in/sparar ner emailen från query i en array istället för objekt
+  $DBemail = $result->fetch_assoc(); 
   return ($DBemail['email'] === $email);
 }
 

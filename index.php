@@ -56,7 +56,7 @@
       <div class="container">
         <div class="intro-text">
           <div class="intro-lead-in">Välkommen till Vaccinationsjournalen</div>
-          <div class="intro-heading text-uppercase">Vi gör ditt liv lite enklare</div>
+          <div class="intro-heading text-uppercase">Dina vaccinationer på ett och samma ställe</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="loginpage.php">Logga in</a>
         </div>
       </div>

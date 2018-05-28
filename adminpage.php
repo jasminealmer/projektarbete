@@ -84,7 +84,6 @@ if ($_SESSION["userTypeID"] === "2")
           <h1 class="mb-0">Välkommen
             <span class="text-primary"><?php
             include("connection.php");
-            //session_start();
             $email = $_SESSION["useremail"];
             $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
             $result1 = $connection->query($sql1);
@@ -170,19 +169,14 @@ if ($_SESSION["userTypeID"] === "2")
                               <input type='submit' value='Radera'>
                             </form></td>
                       </tr>";
-                      //echo $row['userID'];
-                      //echo "/";
               }
               echo "</table>";
             }
-
-
           ?>
 
           </div>
         </div>
       </div>
-
       </section>
 
 

@@ -16,10 +16,10 @@ $querySalt = "SELECT salt FROM users WHERE email = '".$LIemail."' ";
 $resultSalt = $connection->query($querySalt);
 $DBsalt = $resultSalt->fetch_assoc();
 
-$SLIpassword = $LIpassword . $DBsalt['salt']; //hämtar saltet i den första raden (kommer bara vara 1 rad)
+$SLIpassword = $LIpassword . $DBsalt['salt'];
 $HSLIpassword = sha1($SLIpassword);
 
-if ($HSLIpassword === $DBpassword['password']) //hämtar lösenordet i den första raden (kommer bara vara 1 rad) och jämför med det saltade och hashade lösenordet som användaren försöker logga in med
+if ($HSLIpassword === $DBpassword['password']) 
 {
   session_start();
   $_SESSION["userTypeID"] = $activeUserType['userTypeID'];

@@ -12,49 +12,20 @@
      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
      <meta charset="utf-8">
-     <title>Svara privatperson</title>
+     <title>Svara på bokningsförfrågan</title>
    </head>
    <body>
      <div class="wrapper">
-     <form class="form-signin" method="post" action="saveEditUser.php">
+     <form class="form-signin" method="post" action="caregiverpage.php">
        <br/>
-       <h2 class="form-signin-heading">Ändra uppgifter</h2>
+       <h2 class="form-signin-heading">Svara på bokningsförfrågan</h2>
        <?php
-       include("connection.php");
-
-       $userID_function = $_POST['userID'];
-
-       $query2 = "SELECT email FROM users WHERE userID=$userID_function";
-       $result2 = $connection->query($query2);
-       $email = $result2->fetch_assoc();
-       $print_email = $email['email'];
-
-       $query3 = "SELECT name FROM users WHERE userID=$userID_function";
-       $result3 = $connection->query($query3);
-       $name = $result3->fetch_assoc();
-       $print_name = $name['name'];
-
-       $query4 = "SELECT phone FROM users WHERE userID=$userID_function";
-       $result4 = $connection->query($query4);
-       $phone = $result4->fetch_assoc();
-       $print_phone = $phone['phone'];
-
-       $query5 = "SELECT postalCode FROM users WHERE userID=$userID_function";
-       $result5 = $connection->query($query5);
-       $postalCode = $result5->fetch_assoc();
-       $print_postalCode = $postalCode['postalCode'];
-
-       echo "<form method='post' action='saveEditUser.php'>
-              <input type='hidden' value=".$userID_function." name='userID'>
-              <p>Email:</p>
+       echo "<form>
+              <p>Ämnesrad:</p>
               <textarea rows='1' type='text' class='form-control' name='update_email'>$print_email</textarea>
-              <p>Name:</p>
-              <textarea rows='1' type='text' class='form-control' name='update_name'>$print_name</textarea>
-              <p>Telefonnummer:</p>
-              <textarea rows='1' type='text' class='form-control' name='update_phone'>$print_phone</textarea>
-              <p>Postnummer:</p>
-              <textarea rows='1' type='text' class='form-control' name='update_postalCode'>$print_postalCode</textarea>
-              <p><input type='submit' onclick='saveEditUser.php' value='Spara'></p>
+              <p>Meddelande:</p>
+              <textarea rows='5' type='text' class='form-control' name='update_name'>$print_name</textarea>
+              <p> <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' onclick='caregiverpage.php' type='submit'>Skicka</button></p>
             </form>";
         ?>
    </div>

@@ -25,26 +25,3 @@
       echo "Ingen träff tyvärr.. :( ";
     }
 ?>
-
-<?php
-/*
-include('connection.php');
-$sql = "SELECT userTypeID, email, name, phone FROM users";
-$result = $connection->query($sql);
-
-if ($result->num_rows>0)
-{
-  echo "<table><tr> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> </tr>";
-  // output data of each row
-  while($row = $result->fetch_assoc())
-  {
-    echo "<tr> <td>".$row["userTypeID"]."</td> <td>".$row["email"]."</td> <td>".$row["name"]."</td> <td>".$row["phone"]."</td> </tr>";
-  }
-  echo "</table>";
-}
-else
-{
-  echo "0 results";
-}
-$connection->close();
-*/

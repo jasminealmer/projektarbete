@@ -84,7 +84,6 @@ if ($_SESSION["userTypeID"] === "3")
           <h1 class="mb-0">Välkommen Vaccinationsgivare
             <span class="text-primary"><?php
             include("connection.php");
-            //session_start();
             $email = $_SESSION["useremail"];
             $sql1 = "SELECT name FROM users WHERE email = '".$email."' ";
             $result1 = $connection->query($sql1);
@@ -128,7 +127,10 @@ if ($_SESSION["userTypeID"] === "3")
                             <td>".$row["postalCode"]."</td>
                             <td>".$row["vaccinationNameDose"]."</td>
                             <td>".$row["message"]."</td>
-                            <td><input type='submit' value='Svara'></td>
+                            <td><form id='sendMessageButton' action='answerMessage.php' method='post'>
+                                    <input type='hidden' value=".$email['email']." name='userEmail'>
+                              <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' type='submit'>Svara</button>
+                            </form></td>
                           </tr>";
                   }
                   echo "</table>";
