@@ -118,12 +118,13 @@ if ($_SESSION["userTypeID"] === "3")
           <div class="resume-item d-flex flex-column flex-md-row mb-5">
             <div class="resume-content mr-auto">
               <h3 class="mb-0">Lägg till tagen vaccination</h3>
-              <form id="contactForm" name="sentMessage" novalidate="novalidate" action="saveVaccination.php">
+              <form id="contactForm" name="sentMessage" novalidate="novalidate" action="saveVaccination.php" method="post">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <div class="subheading mb-3">Vaccination:</div>-
-                      <select name="vaccinationToTake">
+                      <?php echo "<input type='hidden' value=".$userID['userID']." name='userID'>"; ?>
+                      <div class="subheading mb-3">Vaccination:</div>
+                      <select name="takenVaccination">
                         <option value="TBE 1">TBE dos 1</option>
                         <option value="TBE 2">TBE dos 2</option>
                         <option value="TBE 3">TBE dos 3</option>
@@ -135,17 +136,13 @@ if ($_SESSION["userTypeID"] === "3")
                       </select>
                     </div>
                     <div class="form-group">
-                      <input class="form-control" id="email" type="text" placeholder="Vaccinationscentral" required="required" data-validation-required-message="Du måste lägga till en vaccinationscentral.">
-                      <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="form-group">
-                      <input class="form-control" id="date" type="date" value="åååå-mm-dd" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
+                      <input class="form-control" id="date" name="date" type="date" value="åååå-mm-dd" placeholder="Datum" required="required" data-validation-required-message="Du måste fylla i ett datum.">
                       <p class="help-block text-danger"></p>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <textarea class="form-control" id="message" placeholder="Kommentar" ></textarea>
+                      <textarea class="form-control" id="message" name="comment" placeholder="Kommentar" ></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
                     <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -157,13 +154,34 @@ if ($_SESSION["userTypeID"] === "3")
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-center">
                     <div id="success"></div>
-                    <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Lägg till</button><br/><br/>
+                    <button id="sendMessageButton" name="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Lägg till</button>
                   </div>
                 </div>
               </form>
               <div class="subheading mb-3">Registrerade vaccinationer:</div>
               <div class="container">
-              <p>Query från databasen</p>
+                <?php
+                include("connection.php");
+
+                $sqlShowTaken = "SELECT vaccinations.vaccinationNameDose, takenVaccinations.day, takenVaccinations.comment, takenVaccinations.image FROM takenVaccinations JOIN vaccinations ON takenVaccinations.vaccinationID=vaccinations.vaccinationID WHERE userID='".$userID['userID']."' ";
+                $resultShowTaken = $connection->query($sqlShowTaken);
+
+                if ($resultShowTaken->num_rows>0)
+                {
+                  echo "<table><tr> <th>Taget vaccin</th> <th>Datum</th> <th>Kommentar</th> <th>Kvitto</th> </tr>";
+                  // output data of each row
+                  while($row = $resultShowTaken->fetch_assoc())
+                  {
+                    echo "<tr>
+                            <td>".$row["vaccinationNameDose"]."</td>
+                            <td>".$row["day"]."</td>
+                            <td>".$row["comment"]."</td>
+                            <td>".$row["image"]."</td>
+                          </tr>";
+                  }
+                  echo "</table>";
+                }
+              ?>
             </div>
           </div>
         </div>
@@ -221,7 +239,6 @@ if ($_SESSION["userTypeID"] === "3")
                       <option value="Hepatit A 3">Hepatit A dos 3</option>
                       <option value="HPV 1">HPV dos 1</option>
                       <option value="HPV 2">HPV dos 2</option>
-                      <option value="HPV 3">HPV dos 3</option>
                     </select>
                   </div>
                   <script src="js/request.js"></script>
