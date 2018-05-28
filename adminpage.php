@@ -129,7 +129,7 @@ if ($_SESSION["userTypeID"] === "2")
 
               if ($sql->num_rows > 0)
               {
-                echo "<table><tr> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> <th>Postnummer</th> </tr>";
+                echo "<table><tr> <th>Användartyp &nbsp;</th> <th>Email</th> <th>Namn</th> <th>Telefon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Postnummer</th> </tr>";
                 while ($data = $sql->fetch_array())
                 {
                   echo "<tr> <td>".$data["userTypeID"]."</td><td>".$data["email"]."</td><td>".$data["name"]."</td><td>".$data["phone"]."</td><td>".$data["postalCode"]."</td></tr>";
@@ -150,7 +150,7 @@ if ($_SESSION["userTypeID"] === "2")
 
             if ($result->num_rows>0)
             {
-              echo "<table><tr> <th>Användar ID</th> <th>Användartyp</th> <th>Email</th> <th>Namn</th> <th>Telefon</th> <th>Postnummer</th> <th>Ändra</th> <th>Radera</th> </tr>";
+              echo "<table><tr> <th>Användar ID &nbsp;</th> <th>Användartyp &nbsp;</th> <th>Email</th> <th>Namn</th> <th>Telefon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Postnummer &nbsp;</th> <th>Ändra</th> <th>Radera</th> </tr>";
               // output data of each row
               while($row = $result->fetch_assoc())
               {

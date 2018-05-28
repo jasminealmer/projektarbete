@@ -12,7 +12,7 @@
      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
      <meta charset="utf-8">
-     <title>Redigera uppgifter</title>
+     <title>Svara privatperson</title>
    </head>
    <body>
      <div class="wrapper">
@@ -44,7 +44,7 @@
        $postalCode = $result5->fetch_assoc();
        $print_postalCode = $postalCode['postalCode'];
 
-       echo "<form method='post' id='sendMessageButton' action='saveEditUser.php'>
+       echo "<form method='post' action='saveEditUser.php'>
               <input type='hidden' value=".$userID_function." name='userID'>
               <p>Email:</p>
               <textarea rows='1' type='text' class='form-control' name='update_email'>$print_email</textarea>
@@ -53,8 +53,8 @@
               <p>Telefonnummer:</p>
               <textarea rows='1' type='text' class='form-control' name='update_phone'>$print_phone</textarea>
               <p>Postnummer:</p>
-              <textarea rows='1' type='text' class='form-control' name='update_postalCode'>$print_postalCode</textarea> <br/><br/>
-              <p> <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' onclick='saveEditUser.php' type='submit'>Spara</button></p>
+              <textarea rows='1' type='text' class='form-control' name='update_postalCode'>$print_postalCode</textarea>
+              <p><input type='submit' onclick='saveEditUser.php' value='Spara'></p>
             </form>";
         ?>
    </div>

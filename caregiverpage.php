@@ -119,7 +119,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                 if ($result->num_rows>0)
                 {
-                  echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination     </th> <th>Meddelande     </th> <th>Svara</th> </tr>";
+                  echo "<table><tr> <th>Email</th> <th>Postnummer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Vaccin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> <th>Meddelande     </th> <th>Svara</th> </tr>";
                   // output data of each row
                   while($row = $result->fetch_assoc())
                   {

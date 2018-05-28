@@ -61,7 +61,7 @@
               <textarea rows='1' type='text' class='form-control' name='update_phone'>$print_phone</textarea>
               <p>Postnummer:</p>
               <textarea rows='1' type='text' class='form-control' name='update_postalCode'>$print_postalCode</textarea>
-              <p><input type='submit' onclick='saveEditAdmin.php' value='Spara'></p>
+              <p> <button id='sendMessageButton' class='btn btn-primary btn-xl text-uppercase' onclick='saveEditUser.php' type='submit'>Spara</button></p>
             </form>";
         ?>
    </div>
