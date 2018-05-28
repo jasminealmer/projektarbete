@@ -51,7 +51,7 @@ if ($_SESSION["userTypeID"] === "3")
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <span class="d-block d-lg-none">Start Bootstrap</span>
         <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profilbild.jpg" alt="">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/jasmine.jpg" alt="">
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,11 +145,23 @@ if ($_SESSION["userTypeID"] === "3")
                       <textarea class="form-control" id="message" name="comment" placeholder="Kommentar" ></textarea>
                       <p class="help-block text-danger"></p>
                     </div>
+
+<!--
+
                     <form action="upload.php" method="post" enctype="multipart/form-data">
                       Ladda upp kvitto:
                       <input type="file" name="fileToUpload" id="fileToUpload">
                       <input type="submit" value="Ladda upp" name="submit" id="laddaUpp">
                     </form>
+
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                      Select image to upload:
+                      <input type="file" name="fileToUpload" id="fileToUpload">
+                      <input type="submit" value="Upload Image" name="submit">
+                    </form>
+
+-->
+
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-lg-12 text-center">
@@ -168,7 +180,7 @@ if ($_SESSION["userTypeID"] === "3")
 
                 if ($resultShowTaken->num_rows>0)
                 {
-                  echo "<table><tr> <th>Taget vaccin</th> <th>Datum</th> <th>Kommentar</th> <th>Kvitto</th> </tr>";
+                  echo "<table><tr> <th>Taget vaccin</th> <th>Datum</th> <th>Kommentar</th> </tr>";
                   // output data of each row
                   while($row = $resultShowTaken->fetch_assoc())
                   {
@@ -176,7 +188,6 @@ if ($_SESSION["userTypeID"] === "3")
                             <td>".$row["vaccinationNameDose"]."</td>
                             <td>".$row["day"]."</td>
                             <td>".$row["comment"]."</td>
-                            <td>".$row["image"]."</td>
                           </tr>";
                   }
                   echo "</table>";
@@ -228,7 +239,7 @@ if ($_SESSION["userTypeID"] === "3")
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="subheading mb-3">Välj önskat vaccin:</div>-
+                    <div class="subheading mb-3">Välj önskat vaccin:</div>
                     <select name="vaccinationToTake">
                       <option value="">Välj vaccin</option>
                       <option value="TBE 1">TBE dos 1</option>
@@ -247,30 +258,6 @@ if ($_SESSION["userTypeID"] === "3")
                     <div id="success"></div>
                     <input type="submit" value="Skicka förfrågan" id="sendRequestButton" class="btn btn-primary btn-xl text-uppercase"><br/><br/>
                   </div>
-                </div>
-                <div>
-                  <?php
-                  $sqlShowBookings = "SELECT email, postalCode, vaccinationNameDose, message FROM bookingRequests WHERE email = '".$_SESSION['useremail']."' ";
-                  echo $sqlShowBookings;
-                  $result = $connection->query($sqlShowBookings);
-
-                  if ($result->num_rows>0)
-                  {
-                    echo "<table><tr> <th>Email</th> <th>Postnummer</th> <th>Önskad vaccination</th> <th>Meddelande</th> <th>Åtgärd</th> </tr>";
-                    // output data of each row
-                    while($row = $result->fetch_assoc())
-                    {
-                      echo "<tr>
-                              <td>".$row["email"]."</td>
-                              <td>".$row["postalCode"]."</td>
-                              <td>".$row["vaccinationNameDose"]."</td>
-                              <td>".$row["message"]."</td>
-                              <td><input type='submit' value='Radera'></td>
-                            </tr>";
-                    }
-                    echo "</table>";
-                  }
-                ?>
                 </div>
               </form>
             </div>

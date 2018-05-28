@@ -1,6 +1,5 @@
 <?php
 include('connection.php');
-//include('checklogin.php');
 
 session_start();
 

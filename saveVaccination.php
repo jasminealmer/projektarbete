@@ -11,9 +11,8 @@ $print_vaccinationID = $vaccinationID['vaccinationID'];
 $userID = $_POST['userID'];
 $day = $_POST['date'];
 $message = $_POST['comment'];
-$image = $_POST['fileToUpload'];
 
-$query = "INSERT INTO takenVaccinations (userID, vaccinationID, day, comment, image) VALUES ($userID, '".$print_vaccinationID."', '".$day."', '".$message."', '".$image."')";
+$query = "INSERT INTO takenVaccinations (userID, vaccinationID, day, comment) VALUES ($userID, '".$print_vaccinationID."', '".$day."', '".$message."')";
 $result2 = $connection->query($query);
 
 header("Location: userpage.php");
